@@ -1,0 +1,53 @@
+﻿﻿@using System.Web.UI.WebControls
+@using rad301CA2s00132798.Models
+@model Movie
+<div class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="lead">Create Movie</div>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="row">
+                    <div class="form-group col-xs-4">
+                        @Html.LabelFor(model => model.Title)
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Title)
+                    </div>
+                    <div class="form-group col-xs-4">
+                        @Html.LabelFor(model => model.ReleaseDate)
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' name="ReleaseDate" class="form-control" data-date-format="DD/MM/YYYY" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ReleaseDate)
+                    </div>
+                    <div class="col-xs-4">
+                        @Html.LabelFor(model => model.Director)
+                        @Html.DropDownList("DirectorId", new SelectList(ViewBag.directorList, "DirectorId", "Name"),
+                            new { @class = "form-control" })
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Create</button>
+                </div>
+            }
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-info" href="@Url.Action("Index")"><span class="glyphicon glyphicon-home"></span>&nbsp;Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#datetimepicker1').datetimepicker({ pickTime: false });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

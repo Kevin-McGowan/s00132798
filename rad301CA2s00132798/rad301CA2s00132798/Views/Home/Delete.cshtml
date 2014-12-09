@@ -1,0 +1,29 @@
+﻿@model rad301CA2s00132798.Models.Movie
+
+<div class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4>Confirm deletion of @Model.Title</h4>
+        </div>
+    </div>
+    <div class="panel-body">
+
+        <fieldset>
+            <legend>Details</legend>
+
+            <div>
+                @Html.DisplayFor(model => model.Title) starting&nbsp;
+                @Html.DisplayFor(model => model.ReleaseDate)
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                }
+            </div>
+        </fieldset>
+
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-success" })
+    </div>
+</div>

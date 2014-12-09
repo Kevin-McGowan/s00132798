@@ -1,0 +1,48 @@
+﻿﻿@using rad301CA2s00132798.Models
+@model rad301CA2s00132798.Models.Movie
+
+<div class="container">
+    <h2>@ViewBag.PageTitle</h2>
+    <div class="row">
+        <div class="col-xs-4">
+            <h4><span class="label label-warning">@Html.DisplayNameFor(model => model.Director):&nbsp;</span>&nbsp;@Model.Director.Name</h4>
+        </div>
+        <div class="col-xs-3">
+            <h4><span class="label label-warning">Male/Female:&nbsp;</span>&nbsp;&nbsp;<span class="pie">@ViewBag.SexStatsMale,@ViewBag.SexStatsFemale</span></h4>
+        </div>
+        <div class="col-xs-4">
+            <h4><span class="label label-warning">Release Date:&nbsp;</span>&nbsp;@Model.ReleaseDate.ToShortDateString()</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-11">
+            @Html.Partial("_ActorsOnMovie", Model.MovieActors)
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info", @style = "margin-top:10px" })
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".pie").peity("pie");
+            $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
+            $('.peity').tooltip({ title: '@ViewBag.SexStatsMale Male / @ViewBag.SexStatsFemale Female', placement: 'bottom' });
+            var ctx = $("#maleFemaleSplitChart").get(0).getContext("2d");
+            var data = [
+                {
+                    value: @ViewBag.SexStatsMale,
+                    color: "#F7464A",
+                    highlight: "#FF5A5E",
+                    label: "Male"
+                },
+            {
+                value: @(ViewBag.SexStatsFemale),
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
+                label: "Female"
+            }
+            ];
+        });
+    </script>
+}
